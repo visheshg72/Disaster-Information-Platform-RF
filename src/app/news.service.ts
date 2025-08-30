@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class NewsService {
-  private baseUrl = 'http://20.244.144.173:8000/api';
+  private baseUrl = 'https://20.244.144.173:8000/api';
 
 
   constructor(private http: HttpClient) {}
