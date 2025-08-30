@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <div class="row">  
+    <!-- Trending News Section  -->
+    <div class="col-md-12">
+      <div class="news-section">
+        <div class="news-header">
+          <h2 class="news-title">{{ category ? (category | uppercase) : '' }}</h2>
+          <i class="bi bi-arrow-right-circle arrow-icon"></i>
+        </div>
+        <div class="scroll-container-vertical">
+          <div *ngIf="visibleTrending && visibleTrending.length > 0; else noTrendingData">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+              <div class="col" *ngFor="let news of visibleTrending">
+                <div class="card news-card h-100">
+                  <img [src]="news?.MediaContent || 'assets/No-Image.png'" (error)="onImageError($event)"
+                    class="card-img-top" alt="News image" />
+                  <div class="card-body d-flex flex-column">
+                    <div class="flex-grow-1">
+                      <h5 class="card-title mb-1" [title]="news.Title">
+                        {{ getTruncatedTitle(news.Title) }}
+                      </h5>
+                      <a [href]="news.Link" target="_blank" class="btn btn-outline-success btn-sm rounded-pill mt-1">
+                        Read More <i class="bi bi-arrow-right"></i>
+                      </a>
+                    </div>
+                    <p class="text-muted mb-0 mt-2">
+                      Published On : {{ news.Published | date: 'yyyy-MM-dd HH:mm:ss' }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button id="load-more-featured" class="load-more-btn btn btn-outline-primary mt-3"
+              (click)="loadMoreTrending()" *ngIf="visibleTrending.length < trendingNews.length">
+              Load More
+            </button>
+          </div>
+          <ng-template #noTrendingData>
+            <div class="alert alert-warning text-center my-3 p-4 shadow-sm rounded">
+              <i class="fas fa-exclamation-circle fa-2x d-block mb-2 text-warning"></i>
+              <p class="mb-0 font-weight-bold">No data found</p>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>   
+  </div>
+</div>
+  

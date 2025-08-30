@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class NewsService {
   private baseUrl = 'http://20.244.144.173:8000/api';
 
+
   constructor(private http: HttpClient) {}
 
   getFeaturedNews(): Observable<any> {
@@ -29,4 +30,9 @@ export class NewsService {
   getKnowledgeHub(): Observable<any> {
     return this.http.get(`${this.baseUrl}/knowledge-hub`);
   }
+
+  getCategoryDetails(category: string): Observable<any> {
+    const encodedCategory = encodeURIComponent(category);
+    return this.http.get(`${this.baseUrl}/search?keyword=${encodedCategory}&threshold=70`);
+}
 }

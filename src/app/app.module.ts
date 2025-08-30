@@ -11,11 +11,14 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { DetailListComponent } from './components/detail-list/detail-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
+    DetailListComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatSlideToggleModule,
     MatDividerModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

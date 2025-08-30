@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NewsService } from 'src/app/news.service';
 
 @Component({
@@ -29,6 +29,16 @@ KnowledgeHubPage: number = 1;
 visibleGlobalNews: any[] = [];
 GlobalNewsPage: number = 1;
 
+  menuItems = [
+    { id: 'featured-news', label: 'Featured' },
+    { id: 'bulletin-news', label: 'Bulletin' },
+    { id: 'trending-news', label: 'Trending' },
+    { id: 'global-news', label: 'Global' },
+    { id: 'knowledge-hub', label: 'Knowledge' }
+  ];
+
+  activeSection = 'featured-news';
+
 
 constructor(private newsService: NewsService) {}
 
@@ -41,6 +51,30 @@ loadMoreCount: number = 9;
 ngOnInit(): void {
   this.loadAllNews();
 }
+
+scrollToSection(sectionId: string) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+@HostListener('window:scroll', [])
+  onWindowScroll() {
+    let currentSection = '';
+    this.menuItems.forEach(item => {
+      const element = document.getElementById(item.id);
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        if (rect.top <= 80 && rect.bottom >= 80) {
+          currentSection = item.id;
+        }
+      }
+    });
+    if (currentSection) {
+      this.activeSection = currentSection;
+    }
+  }
 
 getTruncatedTitle(title: string, maxLength: number = 60): string {
   if (title.length > maxLength) {
@@ -122,10 +156,9 @@ loadMoreKnowledgeHub(): void {
 
 
   onImageError(event: Event) {
-  const imgElement = event.target as HTMLImageElement;
-  imgElement.src = 'assets/No-Image.png';
-}
-
+    const imgElement = event.target as HTMLImageElement;
+    imgElement.src = 'assets/No-Image.png';
+  }
 
 }
 

@@ -1,67 +1,107 @@
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-  <div class="container">
+  <div class="container-fluid px-3">
+    <!-- Brand -->
     <a class="navbar-brand" href="#">
       <img src="assets/rf.png" alt="Reliance Foundation">
     </a>
+
+    <!-- Mobile Toggler -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
+
+    <!-- Content -->
+    <div class="collapse navbar-collapse justify-content-between flex-lg-nowrap" id="navbarNav">
+      <!-- Left: HOME & CATEGORY -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" href="#" style="border-bottom: 3px solid #00a85a;">HOME</a>
+          <a class="nav-link" routerLink="/">HOME</a>
         </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="#">LATEST</a>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle bg-transparent border-0" id="categoryDropdown" role="button">
+            CATEGORY
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+            <li>
+              <a class="dropdown-item" [attr.href]="'/details/flood'" target="_blank">Flood</a>
+            </li>
+            <li>
+              <a class="dropdown-item" [attr.href]="'/details/earthquake'" target="_blank">Earthquake</a>
+            </li>
+            <li>
+              <a class="dropdown-item" [attr.href]="'/details/cyclone'" target="_blank">Cyclone</a>
+            </li>
+            <li>
+              <a class="dropdown-item" [attr.href]="'/details/drought'" target="_blank">Drought</a>
+            </li>
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">CATEGORY</a>
-        </li> -->
       </ul>
-      <!-- <form class="d-flex me-3 search-form">
-        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-        <span class="search-icon">
-          <i class="bi bi-search"></i>
-        </span>
-      </form>
-      <button class="btn login-btn">
-        <i class="bi bi-person-fill me-1"></i>
-        Login
-      </button> -->
+
+      <!-- Right: Language toggle + Search -->
+      <div class="d-flex align-items-center ms-lg-auto gap-2">
+        <!-- Language Toggle -->
+        <div class="language-toggle me-2 mr-2 mb-2">
+          <input type="checkbox" id="languageSwitch" [(ngModel)]="isEnglish" (change)="toggleLanguage()"
+            [checked]="isEnglish">
+
+          <label for="languageSwitch" class="mb-0">
+            <span class="lang lang-en">ENGLISH</span>
+            <span class="slider"></span>
+            <span class="lang lang-hi">हिंदी</span>
+          </label>
+        </div>
+
+
+        <!-- Search -->
+        <form class="d-flex" (ngSubmit)="onSearch()">
+          <input class="form-control me-2 w-auto" style="min-width:220px" type="search" placeholder="Search..."
+            [(ngModel)]="searchQuery" name="search">
+          <button class="btn btn-outline-primary" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </form>
+
+      </div>
     </div>
   </div>
 </nav>
+
+<!-- Router Outlet -->
 <router-outlet></router-outlet>
 
+<!-- Footer -->
 <footer class="bg-dark text-white mt-5 py-4">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <h5>About Reliance Foundation</h5>
-          <p>A brief description about the foundation and its mission.</p>
-        </div>
-        <div class="col-md-4">
-          <h5>Quick Links</h5>
-          <ul class="list-unstyled">
-            <li><a href="#" class="text-white">Home</a></li>
-            <li><a href="#" class="text-white">Latest News</a></li>
-            <li><a href="#" class="text-white">Categories</a></li>
-            <li><a href="#" class="text-white">Contact Us</a></li>
-          </ul>
-        </div>
-        <div class="col-md-4">
-          <h5>Connect With Us</h5>
-          <div class="d-flex">
-            <a href="#" class="text-white me-3 mr-2"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="text-white me-3 mr-2"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="text-white me-3 mr-2"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="text-white mr-2"><i class="bi bi-linkedin"></i></a>
-          </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>About Reliance Foundation</h5>
+        <p>A brief description about the foundation and its mission.</p>
       </div>
-      <hr>
-      <div class="text-center">
-        <p>© 2024 Reliance Foundation. All rights reserved.</p>
+      <div class="col-md-4">
+        <h5>Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-white">Home</a></li>
+          <li><a href="#" class="text-white">Latest News</a></li>
+          <li><a href="#" class="text-white">Categories</a></li>
+          <li><a href="#" class="text-white">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h5>Connect With Us</h5>
+        <div class="d-flex">
+          <a href="#" class="text-white me-3 mr-2"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="text-white me-3 mr-2"><i class="bi bi-twitter"></i></a>
+          <a href="#" class="text-white me-3 mr-2"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
+        </div>
       </div>
     </div>
-  </footer>
+    <hr>
+    <div class="text-center">
+      <p>© 2024 Reliance Foundation. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
